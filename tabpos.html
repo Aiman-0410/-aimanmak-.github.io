@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Table with Positioning</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sticky Header */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 220px; /* Space for the sidebar */
+            padding: 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px;
+                height: 30px;
+                vertical-align: bottom;
+            }
+        }
+
+        /* Footer Styling */
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Absolute Positioning */
+        .absolute-box {
+            position: absolute;
+            top: 30px;
+            left: 100px;
+            background-color: lightblue;
+            padding: 10px;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+        /* Popup Modal */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border: 2px solid #4CAF50;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            display: none; /* Hidden by default */
+        }
+
+        /* Z-Index Example */
+        .z-index-box {
+            position: relative;
+            background-color: lightcoral;
+            padding: 10px;
+            z-index: 1;
+        }
+        .z-index-box:hover ~ .absolute-box {
+            z-index: 100; /* Bring to front on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Header -->
+    <header>
+        <h1>Styled Table with Positioning</h1>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Sidebar</h2>
+        <p>This sidebar stays fixed on the left side of the page.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2>A Basic Table</h2>
+        <table>
+            <tr>
+               <th>Name</th>
+               <th>Age</th>
+               <th>Phone</th>
+               <th>Salary</th>
+               <th>Email</th>
+            </tr>
+            <tr>
+                <td>Arshad Khan</td>
+                <td>25</td>
+                <td>123-456-7890</td>
+                <td>20000</td>
+                <td>arshad23@gmail.com</td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>43</td>
+                <td>987-654-3210</td>
+                <td>40000</td>
+                <td>smithjane476@gmail.com</td>
+            </tr>
+            <tr>
+                <td>Raj Sharma</td>
+                <td>36</td>
+                <td>555-123-4567</td>
+                <td>35000</td>
+                <td>rajsharma123@gmail.com</td>
+            </tr>
+        </table>
+        <p>Resize the window to check out the table alignment.</p>
+
+        <!-- Absolute Positioning Example -->
+        <div style="position: relative; border: 3px solid chocolate; padding: 10px; margin: 10px;">
+            
+            <div class="absolute-box">
+               This box is positioned absolutely within parent container.
+            </div>
+
+            <div class="z-index-box">
+                Hover over this box to bring it to the front.
+            </div>
+        </div>    
+        <!-- Popup Modal -->
+        <div class="popup" id="popup">
+            <h2>Popup Modal</h2>
+            <p>This is a centered popup modal.</p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+        <button onclick="showPopup()">Show Popup</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Footer Section</p>
+    </footer>
+
+    <script>
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
