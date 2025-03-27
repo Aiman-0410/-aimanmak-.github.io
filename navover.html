@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation, Overflow and Inline-block</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Horizontal Navigation Bar Styling */
+        .horizontal-navbar {
+            background-color: #333; /* Dark background */
+            overflow: hidden; /* Clear floats */
+            display: flex; /* Flexbox for horizontal layout */
+            justify-content: center; /* Center the menu items */
+        }
+
+        /* Horizontal Navigation Links Styling */
+        .horizontal-navbar a {
+            color: white; /* White text */
+            text-decoration: none; /* Remove underline */
+            padding: 14px 20px; /* Spacing around links */
+            display: block; /* Make links block-level for padding */
+            text-align: center;
+        }
+
+        /* Hover Effect for Horizontal Menu */
+        .horizontal-navbar a:hover {
+            background-color: #575757; /* Dark gray background on hover */
+        }
+
+        /* Active Link Styling for Horizontal Menu */
+        .horizontal-navbar a.active {
+            background-color: #4CAF50; /* Green background for active link */
+        }
+
+        /* Vertical Navigation Bar Styling */
+        .vertical-navbar {
+            width: 250px; /* Fixed width for the vertical menu */
+            background-color: #333; /* Dark background */
+            position: fixed; /* Fixed on the left side */
+            height: 100%; /* Full height */
+            overflow: auto; /* Scrollable if content overflows */
+        }
+
+        /* Vertical Navigation Links Styling */
+        .vertical-navbar a {
+            color: white; /* White text */
+            text-decoration: none; /* Remove underline */
+            padding: 15px 20px; /* Spacing around links */
+            display: block; /* Make links block-level */
+        }
+
+        /* Hover Effect for Vertical Menu */
+        .vertical-navbar a:hover {
+            background-color: #575757; /* Dark gray background on hover */
+        }
+
+        /* Submenu Styling */
+        .submenu {
+            display: none;
+            position: absolute; 
+            background-color: #444; /* Slightly lighter background for submenus */
+            padding-left: 20px;
+            list-style: none;
+            margin: 0; 
+            z-index: 1000;/* Indent submenu items */
+        }
+
+        /* Show Submenu on Hover */
+        .vertical-navbar .menu-item:hover .submenu {
+            display: block; /* Show submenu on hover */
+        }
+
+        /* Hamburger Menu for Small Screens */
+        .hamburger {
+            display: none; /* Hidden by default */
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 20px;
+            border: none;
+        }
+
+        /* Show Hamburger Menu on Small Screens */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block; /* Show hamburger menu */
+            }
+
+            .vertical-navbar {
+                display: none; /* Hide the navbar by default */
+                position: absolute;
+            }
+
+            .vertical-navbar.active {
+                display: block; /* Show navbar when active */
+            }
+            .submenu {
+                position: static;
+                padding-left: 20px;}
+        }
+
+        /* Content Section Styling */
+        .content {
+            margin-left: 260px; /* Space for the vertical menu */
+            padding: 20px;
+        }
+        .flex-container {
+            display: flex; /* Use Flexbox to align items horizontally */
+            gap: 15px; /* Add space between items */
+            margin-left: 260px; /* Space for the vertical menu */
+            margin-top: 10px;
+        }
+
+/* Individual Items in the Flex Container */
+        .flex-container > div {
+            flex: 1; /* Allow items to grow equally */ /* Set a minimum width for each item */
+        }
+        /* Container with Fixed Dimensions and Overflowed Content */
+        .overflow-container {
+            width: 300px;
+            height: 150px;
+            border: 2px solid #333;
+            overflow: auto; /* Scrollable content */
+            padding: 5px;
+        }
+
+        /* Text Block with Limited Height and Width */
+        .text-block {
+            width: 200px;
+            height: 100px;
+            border: 2px solid #444;
+            overflow: hidden; /* Hide overflowing content */
+            padding: 5px;
+        }
+
+        /* Image Inside a Fixed Container */
+        .image-container {
+            width: 200px;
+            height: 150px;
+            border: 4px solid #444;
+            overflow: visible; /* Crop overflowing parts of the image */
+        }
+
+        .image-container img {
+            width: 250px; /* Scale image to fit container width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Dropdown Menu with Fixed Height */
+        .dropdown {
+            width: 200px;
+            border: 1px solid #333;
+            overflow-y: scroll; /* Vertical scrolling */
+            max-height: 100px; /* Fixed height */
+            padding: 5px;
+        }
+
+        .dropdown-item {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f0f0; /* Highlight on hover */
+        }
+        span.a{
+            display: inline;
+            width: 100px;
+            height: 100px;
+            padding: 3px;
+            border: 1px solid #333;
+            background-color: yellowgreen;
+        }
+        span.b{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            padding: 3px;
+            border: 1px solid #333;
+            background-color: yellowgreen;
+        }
+        span.c{
+            display: block;
+            width: 100px;
+            height: 100px;
+            padding: 3px;
+            border: 1px solid #333;
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+    <!-- Horizontal Navigation Bar -->
+    <div class="horizontal-navbar">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hamburger Menu -->
+    <div class="hamburger" onclick="toggleMenu()">☰ Menu</div>
+
+    <!-- Vertical Navigation Bar -->
+    <div class="vertical-navbar" id="verticalNavbar">
+        <a href="#home">Home</a>
+        <div class="menu-item">
+            <a href="#about">About</a>
+            <div class="submenu">
+                <a href="#team">Our Team</a>
+                <a href="#history">History</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <a href="#services">Services</a>
+            <div class="submenu">
+                <a href="#web">Web Development</a>
+                <a href="#design">Design</a>
+                <a href="#marketing">Marketing</a>
+            </div>
+        </div>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <h2>Inline block properties</h2>
+        <p>Lorem ipsum dolor <span class="a">amet,</span> <span class="a">consectetur</span> adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris <span class="b">nisi</span> <span class="b">ut</span> aliquip ex ea commodo consequat.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod <span class="c">tempor</span> <span class="c">incididunt</span> ut labore et dolore magna aliqua.</p>
+    </div>
+
+    <h2 style="margin-left: 260px;">Overflow properties</h2>
+    <div class="flex-container">
+    <!-- Container with Fixed Dimensions and Overflowed Content -->
+        <div class="overflow-container">
+            <p>This is a container with fixed dimensions. If the content overflows, scrollbars will appear.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+   
+
+    <!-- Text Block with Limited Height and Width -->
+        <div class="text-block">
+            <p>This is a text block with limited height and width. Overflowing content is hidden. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <br>
+
+    <!-- Image Inside a Fixed Container -->
+        <div class="image-container">
+            <img src="image2.jpg" alt="Sample Image">
+        </div>
+
+    <!-- Dropdown Menu with Fixed Height -->
+        <div class="dropdown">
+            <div class="dropdown-item">Item 1</div>
+            <div class="dropdown-item">Item 2</div>
+            <div class="dropdown-item">Item 3</div>
+            <div class="dropdown-item">Item 4</div>
+            <div class="dropdown-item">Item 5</div>
+        </div>
+    </div>    
+
+    <script>
+        // Toggle the visibility of the vertical navbar on small screens
+        function toggleMenu() {
+            const navbar = document.getElementById('verticalNavbar');
+            navbar.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
